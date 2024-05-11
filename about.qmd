@@ -1,0 +1,15 @@
+---
+title: "Luke Rutten"
+image: pfp2_cropped.png
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/lukerutten/
+    - icon: github
+      text: Github
+      href: https://github.com/Luke-Rutten
+---
+
+Hello! And welcome to the page dedicated to me. I'm going to update this page eventually - likely around August 2024 - but until then my focus will be on learning, exploring, and mastering everything I'm able about data science.
