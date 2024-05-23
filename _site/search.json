@@ -9,9 +9,9 @@
   {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "title": "Deliberate Practice - Getting Better, Faster",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "Welcome to the first post of my blog on Data Science!\nYes, yes, I know the title says “practice,” not “data” or “science,” but trust me – it connects. At the time of writing, I’m currently in the process of learning how to be a good (read: hirable) data scientist and it’s likely that I’m going to need to learn a thing or two to get there. As I was having a conversation with someone who knows a lot about how best to go about doing that, I was given two unexpected pieces of advice:\n1) Read “Peak: Secrets From the New Science of Expertise”\n2) Start a blog\nSo. Here I am. Blogging about Peak.\nPeak is a book about developing expertise but, much more accurately than that, it’s a book about practice. Specifically, it’s a book about what the authors call “deliberate practice,” how to do it, and why it’s the most effective path to becoming an expert. This blog post is both a summary of my key takeaways from that book and an extension to how I see it applying to my journey into data science. So, without any further ado, here are some of the highlights from Peak.\nPractice does not make perfect.\nPractice makes permanent.\nPractice takes processes that require conscious attention and creates unconscious copies so that next time, we don’t need to think. We can just do. Practice makes our actions faster. And easier. And automatic. Therefore, to practice effectively, we need to (1) identify the exact behaviors we want automated and (2) practice them until they are.\nNow, the interesting thing about practice is that not all forms are created equal. At its core, practice depends on neurobiological mechanisms designed to help our brains grow faster and more energy efficient. In much the same way that we can tailor our workout plans to build better muscles, we can also tailor our practice to make use of these mechanisms and, in doing so, push ourselves to improve even faster and even further than we would ever have otherwise been able to go.\nThis is the process known as “deliberate practice” and this is the concept that this blog post is dedicated to."
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -19,5 +19,47 @@
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data Science",
+    "section": "",
+    "text": "Deliberate Practice - Getting Better, Faster\n\n\n\n\n\n\nIntroduction\n\n\nStrategizing\n\n\n\nSummarizing a good book and extracting its key ideas.\n\n\n\n\n\nMay 20, 2024\n\n\nLuke Rutten\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/welcome/index.html#find-a-good-teacher",
+    "href": "posts/welcome/index.html#find-a-good-teacher",
+    "title": "Deliberate Practice - Getting Better, Faster",
+    "section": "1) Find a good teacher",
+    "text": "1) Find a good teacher\nA good teacher is invaluable. They will be able to help you identify both the most useful things to work on as well as the ways in which you can improve what you’re doing. Oftentimes, a good teacher is someone who knows what you’re trying to accomplish well; someone who’s accomplished it themselves or someone who’s trained to help others reach that accomplishment before. Whatever it is you’re trying to do, it will likely help to have someone who knows more than you directing your efforts as you go."
+  },
+  {
+    "objectID": "posts/welcome/index.html#identify-something-specific-to-work-on",
+    "href": "posts/welcome/index.html#identify-something-specific-to-work-on",
+    "title": "Deliberate Practice - Getting Better, Faster",
+    "section": "2) Identify something specific to work on",
+    "text": "2) Identify something specific to work on\nIdeally, work with your teacher to identify this thing.\nIn order to build a mental representation, we need to make the neurons involved activate together over and over. The best way to make that happen is to do something that depends on the representation… over and over. The more times we get our brain to reach for the representation, the stronger the signal that this group of neurons are connected will be and, therefore, the more quickly those connections will be solidified.\nIf we go into practice without a specific goal in mind, it’s likely that we’ll spend our time doing numerous different things, bouncing around from one task to another. However, approaching practice like this doesn’t give our brain the chance to reach for a specific mental representation over and over and, in line with that, doesn’t give our brain the signal it needs to really solidify the representation.\nFurthermore, without a specific goal, it can be difficult to identify ways in which to adjust what we’re doing to improve towards that goal. Without these adjustments, continued practice will just make it easier and faster to do the things we’re already doing. If what we’re already doing is correct, this is wonderful and no adjustments are needed. If, however, it is instead the case that we’re doing something wrong, then making those neuronal connections stronger actually turns out to be detrimental to us down the line. In all likelihood, if you’re still learning how to do something, your current approach is not optimal. It probably needs to be changed. Identifying specific goals to work towards and making attempts over and over will not only begin to solidify mental representations related to this goal but will also allow you to identify and highlight (and practice) ways to change what you’re doing before it’s been made too permanent."
+  },
+  {
+    "objectID": "posts/welcome/index.html#focus-100-while-you-practice",
+    "href": "posts/welcome/index.html#focus-100-while-you-practice",
+    "title": "Deliberate Practice - Getting Better, Faster",
+    "section": "3) Focus 100% while you practice",
+    "text": "3) Focus 100% while you practice\nThis one is straightforward. The more you can focus on what you’re practicing, the stronger the signal will be that this is important. The stronger that signal is, the quicker the mental representations will be built.\nFurther, letting yourself lapse and get sloppy with attempts will mean the wrong sets of neurons are activating together. In essence, if you’re giving anything less than your best, you’re building mental representations of subpar behaviors. Unfortunately, that’s going to make it that much harder in the future when you’re trying to learn more advanced skills that depend on these lower-level representations. Don’t let yourself be sloppy. Focus, 100%.\nNow, with that said, it’s difficult to push yourself at 100% focus for long periods of time. Instead, limiting practice sessions to about an hour and having multiple sessions separated by generous breaks makes it much more feasible."
+  },
+  {
+    "objectID": "posts/welcome/index.html#get-feedback-and-make-it-as-objective-as-possible",
+    "href": "posts/welcome/index.html#get-feedback-and-make-it-as-objective-as-possible",
+    "title": "Deliberate Practice - Getting Better, Faster",
+    "section": "4) Get feedback and make it as objective as possible",
+    "text": "4) Get feedback and make it as objective as possible\nQuantify your performance. Then use that information to adjust as you go. Are you making progress? At the rate you expect? Is your practice working or have you reached a plateau? Knowing what’s working and what isn’t is essential for creating and updating plans as you go. Unfortunately, humans are notoriously bad at making objective assessments of things. Instead of depending on biased intuitions, get concrete performance feedback whenever possible and use that information to help make decisions."
+  },
+  {
+    "objectID": "posts/welcome/index.html#additional-considerations",
+    "href": "posts/welcome/index.html#additional-considerations",
+    "title": "Deliberate Practice - Getting Better, Faster",
+    "section": "Additional Considerations",
+    "text": "Additional Considerations\nAt this point, you’ve received a surface-level summary of deliberate practice, why it works, and how to do it. Though I’ve skipped over many of the details in creating this summary, what follows is a list of what I see as the details that are essential to mention:\n\nSleep is so important to this process. Get a full night’s rest every night, or your brain won’t have the time it needs to use the mechanisms that learning depends on.\nThe social environment exerts a powerful influence on our behaviors. Surround yourself with people who actively encourage and support your growth (not distract you from it). Encourage them, in turn. Creating communities of support helps both you in your own endeavors and the world around you.\nAim to work on skills that are just outside of your comfort zone. They should push you, but—with focus—you should be able to accomplish them. These are the skills for which your mental representations aren’t quite built yet. As you work on them and master them, they will lay the foundations for all the steps that come after and make learning those skills much more efficient.\nIf plateauing, try differently, not harder. Ideally, you’ll already be at 100% effort anyway. When approaching a barrier you can’t seem to overcome, changing your angle may help you see things you weren’t able to before.\nDuring practice, actively searching for mistakes is critical.\n\nThis helps keeps you 100% focused instead of zoning out.\nThis also helps you identify and correct errors before they become too ingrained."
   }
 ]

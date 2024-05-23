@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Exploring Data Science"
+  description: "Learning, practicing, and mastering the art of data science."
   navbar:
     right:
       - about.qmd
