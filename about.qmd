@@ -1,8 +1,8 @@
 ---
 title: "Luke Rutten"
-image: pfp2_cropped.png
+image: pictures/wide_stand_in.png
 about:
-  template: jolla
+  template: marquee
   links:
     - icon: linkedin
       text: LinkedIn
@@ -12,4 +12,26 @@ about:
       href: https://github.com/Luke-Rutten
 ---
 
-Hello! And welcome to the page dedicated to me. I'm going to update this page eventually - likely around August 2024 - but until then my focus will be on learning, exploring, and mastering everything I'm able about data science.
+I am a doctoral student (4th year) with scientific expertise in applied statistics as well as human learning, behavior, and motivation. I have a passion for using data to uncover the realities hidden right in front of our eyes and striving - always - to learn and grow as a professional.
+
+## Experience
+
+**Intuit** \| Data Science Intern \| Summer 2024
+
+**UT - Austin** \| Graduate Research Assistant \| August 2021 - Present
+
+**UT - Austin** \| Instructor of Record \| 2023 - 2024
+
+## Education
+
+**The University of Texas at Austin** \| Austin, TX
+
+PhD in Educational Psychology \| Aug 2021 - May 2026
+
+MA in Quantitative Methods \| Aug 2021 - May 2026
+
+**The University of Wisconsin - Madison** \| Madison, WI
+
+BS in Psychology & Neurobiology \| Aug 2017 - May 2021
+
+## 
