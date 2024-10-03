@@ -1,5 +1,4 @@
 ---
-title: "Data Science"
 listing:
   contents: posts
   sort: "date desc"

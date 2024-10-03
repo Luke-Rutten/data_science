@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "Luke Rutten",
     "section": "",
-    "text": "Hello! And welcome to the page dedicated to me. I’m going to update this page eventually - likely around August 2024 - but until then my focus will be on learning, exploring, and mastering everything I’m able about data science."
+    "text": "I’m a 4th year PhD student with scientific expertise in applied statistics as well as human learning, behavior, and motivation. I have a passion for using data to uncover the realities hidden right in front of our eyes and striving - always - to learn and grow as a professional.\n\nExperience\n\nIntuit | Data Science Intern\n\nConducted large scale simulation studies to validate the use of Bayesian AB testing\nLeveraged PySpark with parallelized cloud computing to cut simulation run time by 94%\nDelivered clear recommendations for default Bayesian priors that would increase decision accuracy by 5-15% and precision of effect size estimates by 2-5x across anticipated business conditions\n\n\n\nUT - Austin | Graduate Research Assistant\n\nDesigned and conducted 8 original studies and assisted with data analysis on 5 additional studies\nSynthesized key takeaways to present at 2 national level conferences, with 4 papers accepted for publication at high impact journals\n\n\n\nUT - Austin | Instructor of Record\n\nDesigned and delivered two 75 minute lectures each week over a 15 week semester\nEarned an average instructor rating, across 84 undergraduate students, of 4.9 / 5\n\n\n\n\nEducation\n\nPhD in Educational Psychology | The University of Texas at Austin | 2021 - 2026\nMA in Quantitative Methods | The University of Texas at Austin | 2021 - 2026\nBS in Psychology & Neurobiology | The University of Wisconsin - Madison | 2017 - 2021"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -23,7 +23,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Data Science",
+    "title": "Exploring Data Science",
     "section": "",
     "text": "Deliberate Practice - Getting Better, Faster\n\n\n\n\n\n\nIntroduction\n\n\nStrategizing\n\n\n\nSummarizing a good book and extracting its key ideas.\n\n\n\n\n\nMay 20, 2024\n\n\nLuke Rutten\n\n\n\n\n\n\nNo matching items"
   },
@@ -61,5 +61,19 @@
     "title": "Deliberate Practice - Getting Better, Faster",
     "section": "Additional Considerations",
     "text": "Additional Considerations\nAt this point, you’ve received a surface-level summary of deliberate practice, why it works, and how to do it. Though I’ve skipped over many of the details in creating this summary, what follows is a list of what I see as the details that are essential to mention:\n\nSleep is so important to this process. Get a full night’s rest every night, or your brain won’t have the time it needs to use the mechanisms that learning depends on.\nThe social environment exerts a powerful influence on our behaviors. Surround yourself with people who actively encourage and support your growth (not distract you from it). Encourage them, in turn. Creating communities of support helps both you in your own endeavors and the world around you.\nAim to work on skills that are just outside of your comfort zone. They should push you, but—with focus—you should be able to accomplish them. These are the skills for which your mental representations aren’t quite built yet. As you work on them and master them, they will lay the foundations for all the steps that come after and make learning those skills much more efficient.\nIf plateauing, try differently, not harder. Ideally, you’ll already be at 100% effort anyway. When approaching a barrier you can’t seem to overcome, changing your angle may help you see things you weren’t able to before.\nDuring practice, actively searching for mistakes is critical.\n\nThis helps keeps you 100% focused instead of zoning out.\nThis also helps you identify and correct errors before they become too ingrained."
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Luke Rutten",
+    "section": "Experience",
+    "text": "Experience\n\nIntuit - | - Data Science Intern - | - Summer 2024\n\nConducted large scale simulation studies to determine safe default priors for Bayesian AB testing\nLeveraged massive parallel processing using PySpark in Databricks to reduce simulation run time by 94%\nDelivered clear recommendations for default Bayesian priors to increase decision accuracy by 5-15% and increase effect size estimate precision by 2-5x across anticipated business conditions\n\nUT - Austin - | - Graduate Research Assistant - | - August 2021 - Present\n\nDesigned and conducted 8 original studies and assisted with data analysis on 5 additional studies\n\nMethods included: Hierarchical modeling, latent variable modeling, random forest regression, MANOVA\n\nSynthesized key takeaways to present at 2 national level conferences, with 5 papers under review at high impact journals\n\nUT - Austin | Instructor of Record | 2023 - 2024\n\nDesigned and delivered two 75 minute lectures each week over the course of a 15 week semester\nEarned an average instructor rating of 4.9 / 5"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Luke Rutten",
+    "section": "Education",
+    "text": "Education\n\nPhD in Educational Psychology | The University of Texas at Austin | Aug 2021 - May 2026\nMA in Quantitative Methods | The University of Texas at Austin | Aug 2021 - May 2026\nBS in Psychology & Neurobiology | The University of Wisconsin - Madison | Aug 2017 - May 2021"
   }
 ]

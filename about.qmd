@@ -12,26 +12,28 @@ about:
       href: https://github.com/Luke-Rutten
 ---
 
-I am a doctoral student (4th year) with scientific expertise in applied statistics as well as human learning, behavior, and motivation. I have a passion for using data to uncover the realities hidden right in front of our eyes and striving - always - to learn and grow as a professional.
+I'm a 4th year PhD student with scientific expertise in applied statistics as well as human learning, behavior, and motivation. I have a passion for using data to uncover the realities hidden right in front of our eyes and striving - always - to learn and grow as a professional.
 
-## Experience
+# Experience
 
-**Intuit** \| Data Science Intern \| Summer 2024
+#### Intuit \| Data Science Intern
 
-**UT - Austin** \| Graduate Research Assistant \| August 2021 - Present
+-   Conducted large scale simulation studies to validate the use of Bayesian AB testing
+-   Leveraged PySpark with parallelized cloud computing to cut simulation run time by 94%
+-   Delivered clear recommendations for default Bayesian priors that would increase decision accuracy by 5-15% and precision of effect size estimates by 2-5x across anticipated business conditions
 
-**UT - Austin** \| Instructor of Record \| 2023 - 2024
+#### UT - Austin \| Graduate Research Assistant
 
-## Education
+-   Designed and conducted 8 original studies and assisted with data analysis on 5 additional studies
+-   Synthesized key takeaways to present at 2 national level conferences, with 4 papers accepted for publication at high impact journals
 
-**The University of Texas at Austin** \| Austin, TX
+#### UT - Austin \| Instructor of Record
 
-PhD in Educational Psychology \| Aug 2021 - May 2026
+-   Designed and delivered two 75 minute lectures each week over a 15 week semester
+-   Earned an average instructor rating, across 84 undergraduate students, of 4.9 / 5
 
-MA in Quantitative Methods \| Aug 2021 - May 2026
+# Education
 
-**The University of Wisconsin - Madison** \| Madison, WI
-
-BS in Psychology & Neurobiology \| Aug 2017 - May 2021
-
-## 
+-   PhD in Educational Psychology \| **The University of Texas at Austin** \| 2021 - 2026
+-   MA in Quantitative Methods \| **The University of Texas at Austin \|** 2021 - 2026
+-   BS in Psychology & Neurobiology \| **The University of Wisconsin - Madison** \| 2017 - 2021
