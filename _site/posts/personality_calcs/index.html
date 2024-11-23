@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Luke Rutten">
+<meta name="dcterms.date" content="2024-11-05">
+<meta name="description" content="The secret ingredient is multivariate statistics">
+
+<title>Calculating Better Buzzfeed Quizzes – Exploring Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cdb27d422965db95a858f9fb66c1de10.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Exploring Data Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">Luke Rutten</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Luke-Rutten"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/lukerutten/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Calculating Better Buzzfeed Quizzes</h1>
+                  <div>
+        <div class="description">
+          The secret ingredient is multivariate statistics
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Statistics</div>
+                <div class="quarto-category">10 Minute Read</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Luke Rutten </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 5, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Have you ever wondered <a href="https://www.buzzfeed.com/mccarricksean/which-disney-princes-are-you">which Disney Princess you are</a>? Or <a href="https://www.buzzfeed.com/sarahwainschel/celebrity-feud-quiz">which celebrity would secretly hate you</a>? Or even <a href="https://www.buzzfeed.com/goveganallanimalsfeel/which-taylor-swift-song-are-you-quiz">the Taylor Swift song that best fits your personality</a>?</p>
+<p>Well over at Buzzfeed, you have the ability to find out! Each of these quizzes take the answers you enter, make some kind of inference about who you are, and then give you a result based on that inference. Their goal is to assess your personality, then match it to one of the quizzes’ predetermined options. Sounds pretty cool, right?</p>
+<p>Unfortunately, under the hood, it’s not so glamorous. For every quiz question, the available answers are connected to one of the potential outcomes. Every answer you choose contributes one point to the outcome its associated with. At the end of the quiz, whichever outcome has the most points is selected as your best match.</p>
+<p>That’s so lame.</p>
+<p>I mean, come on. Basic counting? Personality has the potential for so so so much more!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="measuring_brain.png" class="img-fluid figure-img"></p>
+<figcaption>Image by pch.vector on Freepik</figcaption>
+</figure>
+</div>
+<p>Now, to be clear, this approach accomplishes Buzzfeed’s goal of easy-to-make-and-take personality quizzes. From a business perspective, it’s clearly a good model. But the focus of this post is not business models. It’s personality models, and in that realm, multivariate statistics allow us to do much better.</p>
+<p>So, if our goal here is to actually assess someone’s personality and then find the closest match to it, how do we go about doing that?</p>
+<p>There are two implications in that question and we’ll need to address both before we arrive at our eventual answer. The assumptions are (1) that personality is something we can quantify and, (2) that, once quantified, we have a way to measure how “close” or “far” one personality is from another.</p>
+<p>Let’s address these, one at a time.</p>
+<section id="personality-is-quantifiable" class="level1">
+<h1>1) Personality is quantifiable</h1>
+<p>How do we turn something abstract, like personality, into something concrete, like numbers?</p>
+<p>Conveniently for us, scientists have been studying this topic for a while now and the answer the field has settled on is that we can reliably piece apart a personality into just five different traits. We assign a score for each trait and then view the unique combination of those scores as someone’s personality.</p>
+<p>The traits are openness to experience, conscientiousness, extraversion, agreeableness, and neuroticism, but those details aren’t really important right now. If you’d like learn more, I’d recommend reading <a href="https://en.wikipedia.org/wiki/Big_Five_personality_traits">the wikipedia article</a>!</p>
+<p>What matters here is that we have a way to represent personality numerically. We ask someone a series of questions, use their answers to arrive at a score on each of the five identified traits (let’s put them a 1 - 5 scale for now), and then view those scores as a representation of personality. For example, we might get an outcome like:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th style="text-align: center;">Openness</th>
+<th style="text-align: center;">Consc.</th>
+<th style="text-align: center;">Extrav.</th>
+<th style="text-align: center;">Agree.</th>
+<th style="text-align: center;">Nuerot.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reader</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>This “Reader” would be average in most ways, but very easy to get along with and, emotionally, quite stable. Now, let’s compare their personality to a set of others and see if we can figure out which they’re closest to. I’m a big Lord of the Rings fan, so we’ll comare them to an iconic band of hobbits:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="four_hobbits.png" class="img-fluid figure-img"></p>
+<figcaption>Sam, Frodo, Pippin, and Merry at Weathertop</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th style="text-align: center;">Openness</th>
+<th style="text-align: center;">Consc.</th>
+<th style="text-align: center;">Extrav.</th>
+<th style="text-align: center;">Agree.</th>
+<th style="text-align: center;">Neruot.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reader</strong></td>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td>Frodo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td>Sam</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td>Merry</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td>Pippin</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Unfortunately, there don’t appear to be any perfect matches between our reader and the hobbits. So, how do we figure out who is closest?</p>
+</section>
+<section id="measuring-distances-between-personalities" class="level1">
+<h1>2) Measuring “Distances” Between Personalities</h1>
+<p>If we’d quantified personality using just one number, measuring the distances between them would be easy. We could just subtract one personality number from another, and the closer the result is to “0”, the closer the personalities would be. Instead, however, our personalities consist of five separate dimensions, so we have to compare five separate numbers all at once.</p>
+<p>We could try taking the differences between every trait one by one and then add those differences together to get a “summed” difference. Looking at our hobbits example:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th style="text-align: center;">Openness</th>
+<th style="text-align: center;">Consc.</th>
+<th style="text-align: center;">Extraversion</th>
+<th style="text-align: center;">Agree.</th>
+<th style="text-align: center;">Neruot.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reader</strong></td>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td>Frodo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td>Sam</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td>Merry</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td>Pippin</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+</tr>
+</tbody>
+</table>
+<p>We would find that Frodo has a “summed distance” of 2 (just two points away on neuroticism from our reader) while Pippin has a “summed distance” of 9 (one point away on openness, agreeableness, and neuroticism and three points away on both conscientiousness and extraversion). As Frodo’s summed score is smaller, we can say our reader is closer to Frodo than they are to Pippin.</p>
+<p>But there’s a problem with this method—and one that the astute reader may already have noticed. If we apply this logic to all the hobbits, we find that Sam also has a “summed distance” of 2 (one point away on conscientious and one on extraversion). Both Frodo and Sam have a “summed distance” of 2, but with distinct ways of reaching that number. Frodo is two points away on one dimension while Sam is one point away on two dimensions.</p>
+<p>So, who is closer?</p>
+<section id="the-pythagorean-theorem-almost-tells-us" class="level3">
+<h3 class="anchored" data-anchor-id="the-pythagorean-theorem-almost-tells-us">The Pythagorean Theorem Almost Tells Us</h3>
+<p>Lucky for us, an insightful mathematician came up with a way to calculate just this sort of thing - <a href="https://www.britannica.com/science/Pythagorean-theorem">and they did it 4,000 years ago</a>! However, it wasn’t until Pythagorus came along about 1,500 years after that that the technique became widely known: the Pythagorean theorem.</p>
+<p><span class="math display">\[
+A^2 + B^2 = C^2
+\]</span></p>
+<p>Now, that’s a formula with mathematical meanings, but I’m going to visualize what’s going on here because the visual will help us understand the multivariate statistics that come next. Basically, imagine this: There are two dots on a plane. we have one dot at point (1,1) and the next dot at point (5, 4). How far are these two points from each other?</p>
+<p><img src="grid_1.png" class="img-fluid"></p>
+<p>Simple subtraction doesn’t quite work here, so we’ll need the Pythagorean theorem to help. It says that the distance between these two points is equal to the square root of the sum of the squares of each of the two perpendicular sides. That’s a lot of words, but basically it’s just saying that we can figure out how far it is diagonally by looking at how far it is horizontally and vertically, so long as it’s formed as a right triangle.</p>
+<p><img src="grid_2.png" class="img-fluid"></p>
+<p>Alright, great! So that’s how we do it when there’s two dimensions. Now how do we do it when there’s five? Remember, every personality has five scores so we have to do it five times.</p>
+<p><span class="math display">\[
+A^2 + B^2 + C^2 + D^2 + E^2 = F^2
+\]</span></p>
+<p>Thankfully, we can actually extend the Pythagorean formula to as many dimensions as we want! And even if that gets hard to visualize, the math still works.</p>
+</section>
+<section id="the-problem-with-pythagorus" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-with-pythagorus">The Problem With Pythagorus</h3>
+<p>There’s just one issue. In order for this theorem to work, we need to use right triangles. That means our axes need to intersect at 90 degree angles and <em>that</em> means our personality dimensions need to be orthogonal or, in other words, need to be uncorrelated.</p>
+<p>Unfortunately, personality dimensions are definitely correlated.</p>
+<p>Why does this matter? Well, imagine that instead of having a graph with two perfectly perpendicular axes, it looked something like this instead:</p>
+<p><img src="grids_3.png" class="img-fluid"></p>
+<p>Here, as you go up on the X-axis, you’re ALSO starting to go up on the Y-axis: there’s a correlation.</p>
+<p>This breaks the Pythagorean theorem. In order for the theorem to work, we need to know the coordinates from perpendicular axes, otherwise we can’t make a right triangle. But if our dimensions correlate, our axes aren’t perpendicular.</p>
+<p>Oh dear. What can be done?</p>
+</section>
+<section id="multivariates-solution-mahalanobis-distances" class="level3">
+<h3 class="anchored" data-anchor-id="multivariates-solution-mahalanobis-distances">Multivariate’s Solution: Mahalanobis Distances</h3>
+<p>Luckily, once again, a statistician saves our day. It was back in 1936 that a man by the name P. C. Mahalanobis kept running into this very problem and decided to try and find a way to fix it. What he figured out was that if you know the correlation between two measures, you can correct the axes using that information! To put that in terms of the visual, if we know that the X-axis is being tilted up by 10 degrees, we can just adjust all of our numbers down by 10 degrees to put them back in their proper place.</p>
+<p><img src="grids_4.png" class="img-fluid"></p>
+<p>It takes some linear algebra to accomplish, but the important part is this: all we have to do is figure out how much our axes are tilting (or how much they’re correlating<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) and we can correct our numbers, allowing us to solve the distance equation once again! Using <a href="https://www.researchgate.net/publication/257664322_Personality_and_Subjective_Well-Being_Evidence_from_South_Korea">this paper’s</a> findings on correlations between the traits, we find that our hobbit of choice is Sam!</p>
+<p>Mahalanobis Distances:</p>
+<ul>
+<li>Sam: 2.89</li>
+<li>Merry: 4.43</li>
+<li>Frodo: 7.42</li>
+<li>Pippin: 43.47</li>
+</ul>
+<p>And, with that, we have a more accurate way to assess not only personalities, but also the distances between them.</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Technically, Mahalanobis distances use covariance matrices instead of correlation matrices, but the underlying concept is the same.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

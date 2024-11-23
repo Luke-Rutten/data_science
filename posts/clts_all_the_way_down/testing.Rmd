@@ -1,0 +1,156 @@
+---
+title: "testing"
+author: "Luke Rutten"
+date: "2024-10-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(sn)
+library(tidyverse)
+```
+
+```{r}
+h_males = data.frame(height = rnorm(1e4, mean = 176, sd = 2.7))
+h_females = data.frame(height = rnorm(1e4, mean = 166, sd = 2.5))
+
+heights = rbind(h_males, h_females)
+
+ggplot(heights, aes(x = height)) +
+  geom_density(fill = "grey80", alpha = .7) +
+  scale_x_continuous(breaks = c(160, 165, 170, 175, 180, 185)) +
+  labs(x = "Height (cm)", y = "Probability", title = "Population Distribution of Heights") +
+  theme_bw() + 
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        title = element_text(size = 16))
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+outcomes <- data.frame(mean_c = as.numeric())
+
+for (i in seq(50)){
+  set.seed(i)
+  
+  val = data.frame(mean_c = sample(heights$height, 10000)) %>%
+    summarise(mean_c = mean(mean_c))
+  
+  outcomes = rbind(outcomes, val)
+}
+
+ggplot(outcomes, aes(x = mean_c)) +
+  geom_histogram(bins = 30, fill = "grey65", color = "grey8") +
+  labs(x = "Average Height of the Sample (cm)", y = "Count", title = "Observed Average Sample Heights") +
+  theme_bw() + 
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 14),
+        title = element_text(size = 16))
+```
+
+### 500 Samples
+
+```{r, echo = FALSE}
+outcomes <- data.frame(mean_c = as.numeric())
+
+for (i in seq(500)){
+  set.seed(i)
+  
+  val = data.frame(mean_c = sample(heights$height, 10000)) %>%
+    summarise(mean_c = mean(mean_c))
+  
+  outcomes = rbind(outcomes, val)
+}
+
+ggplot(outcomes, aes(x = mean_c)) +
+  geom_histogram(bins = 30) +
+  theme_bw()
+```
+
+### 10,000 Samples
+
+```{r, echo = FALSE}
+outcomes <- data.frame(mean_c = as.numeric())
+
+for (i in seq(10000)){
+  set.seed(i)
+  
+  val = data.frame(mean_c = sample(heights$height, 10000)) %>%
+    summarise(mean_c = mean(mean_c))
+  
+  outcomes = rbind(outcomes, val)
+}
+
+ggplot(outcomes, aes(x = mean_c)) +
+  geom_histogram(bins = 30) +
+  theme_bw()
+```
+
+
+```{r}
+set.seed(11)
+
+h_males = data.frame(x1 = rnorm(100, mean = 177, sd = 2.7))
+h_females = data.frame(x1 = rnorm(100, mean = 164, sd = 2))
+
+sims = rbind(h_males, h_females)
+
+
+ggplot(sims, aes(x = x1)) +
+  geom_density(fill = "grey80", alpha = .7, bw = .6) +
+  scale_x_continuous(breaks = c(160, 165, 170, 175, 180, 185)) +
+  labs(x = "Height (cm)", y = "Probability", title = "Population Distribution of Heights") +
+  theme_bw() + 
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        title = element_text(size = 16))
+```
+
+```{r, echo = FALSE}
+outcomes <- data.frame(mean_c = as.numeric())
+
+for (i in seq(50)){
+  set.seed(i)
+  
+  val = data.frame(mean_c = sample(sims$x1, 199)) %>%
+    summarise(mean_c = mean(mean_c))
+  
+  outcomes = rbind(outcomes, val)
+}
+
+ggplot(outcomes, aes(x = mean_c)) +
+  geom_histogram(bins = 20)
+```
+
+```{r, echo = FALSE}
+outcomes <- data.frame(mean_c = as.numeric())
+
+for (i in seq(10000)){
+  set.seed(i)
+
+  val = data.frame(mean_c = sample(sims$x1, 198)) %>%
+    summarise(mean_c = mean(mean_c))
+
+  outcomes = rbind(outcomes, val)
+}
+
+ggplot(outcomes, aes(x = mean_c)) +
+  geom_histogram(bins = 20)
+```
+
+
+
+
+
+
+
+
+
+

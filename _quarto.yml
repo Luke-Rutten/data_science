@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Exploring Data Science"
-  description: "Learning, practicing, and mastering the art of data science."
+  description: "Learning, practicing, and communicating on the art of data science."
   navbar:
     right:
       - about.qmd
@@ -14,6 +14,7 @@ website:
 format:
   html:
     theme: lux
+    linkcolor: blue
     css: styles.css
 
 editor: visual

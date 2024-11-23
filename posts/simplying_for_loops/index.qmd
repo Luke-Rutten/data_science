@@ -1,0 +1,200 @@
+---
+title: "Simplifying Nested For-Loops in Python and R"
+description: "Make iteration easy to write, easy to read, and easy to parallelize with these simple functions"
+author: "Luke Rutten"
+date: "2024-10-02"
+image: "for_loops_image2.png"
+categories:
+  - Python
+  - R
+  - Programming
+  - 3 Minute Read
+---
+
+# The Quick Answer:
+
+Use specific functions to create a data frame of the Cartesian product of vectors passed to them, which can then be iterated across with just one loop (or parallelized).
+
+The function in Python: `itertools.product()`
+
+The function in R: `tidyr::expand_grid()`
+
+# The Full Explanation:
+
+Let's say you're running a simulation study and you've been tasked with gathering performance data across a wide range of conditions. Maybe you're working for a car company that's trying to perfect its new line of fuel injectors and you need to assess the efficacy of the product across the full range of:
+
+-   Engine sizes
+-   Engine temperatures
+-   Manufacturers
+-   Levels of remaining fuel
+-   Car mileages
+-   Car speeds
+
+To capture performance across the full range of possible conditions here, you're going to need to run hundreds or maybe even thousands of simulations! That's way too many to try running one at a time but, lucky for you, you know a thing or two about programming. So you go ahead and define your parameters, then write some for-loops to iterate across conditions.
+
+Let's check out a simplified version of what that might look like.
+
+### Set parameters
+
+You don't technically need to define your parameters outside the loop, but doing so makes for code that's both more readable *and* easier to modify later.
+
+::: panel-tabset
+### Python
+
+```{python}
+engine_sizes = [2.4, 3.2]
+engine_temps = [180, 200, 220]
+manufacturers = ['Toyota', 'Mazda', 'Honda']
+fuel_levels = [0.25, 0.75]
+miles = [50000, 100000, 150000]
+speeds = [30, 50, 80]
+```
+
+### R
+
+```{r}
+engine_sizes = c(2.4, 3.2)
+engine_temps = c(180, 200, 220)
+manufacturers = c("Toyota", "Mazda", "Honda")
+fuel_levels = c(0.25, 0.75)
+miles = c(50000, 100000, 150000)
+speeds = c(30, 50, 80)
+```
+:::
+
+And now that your parameter space is defined, you can go ahead and iterate across it.
+
+### Nested for-loops
+
+::: panel-tabset
+### Python
+
+```{python, eval = FALSE}
+# Write nested for-loops to capture every parameter combination
+for size in engine_sizes:
+  for temp in engine_temps:
+    for manufac in manufacturers:
+      for fuel in fuel_levels:
+        for mile in miles:
+          for mph in speeds:
+        
+            some_function(arg_1 = size, arg_2 = temp, arg_3 = manufac, arg_4 = fuel, arg_5 = mile, arg_6 = mph)
+```
+
+### R
+
+```{r, eval = FALSE}
+# Write nested for-loops to capture every parameter combination
+for (size in engine_sizes){
+  for (temp in temps){
+    for (manufac in manufacturers){
+      for (fuel in fuel_levels){
+        for (mile in miles){
+          for (mph in speeds){
+        
+            some_function(arg_1 = size, arg_2 = temp, arg_3 = manufac, arg_4 = fuel, arg_5 = mile, arg_6 = mph)
+          }
+        }
+      }
+    }
+  }
+}
+```
+:::
+
+This code has been simplified for the sake of the example, but we're already beginning to see an issue. Code that's been indented 6 times is just hard to read! Now imagine a problem where you have to take into account not just 6 parameters, but 10 or 20 or even 30.
+
+It would be a nightmare.
+
+But it's not like we can avoid iteration just because it's hard to read, so what can be done?
+
+### The Solution: Cartesian Products
+
+Because a single for-loop is limited to iteration across just one dimension, we need a way to condense all of our parameters (6, in this example) into just one dimension. This could be done as a data frame, a list of lists, or perhaps even as a dictionary of parameters.
+
+Whichever route we choose to go, it's not enough just to include our parameters separate from one another. Rather, we need each value to contain a unique combination of parameters and we need every unique combination to be present.
+
+Luckily for us, most coding languages (and the communities supporting them) have already laid the groundwork to enable us to do this with ease. In Python, we can use `itertools.product()` and, in R, we can use `tidyr::expand_grid()`. These functions take the data frame approach, calculating every unique combination of parameters and storing the output in individual rows of a data frame.
+
+::: panel-tabset
+### Python
+
+```{python, include = FALSE}
+import pandas as pd
+import itertools
+```
+
+```{python}
+engine_sizes = [2.4, 3.2]
+engine_temps = [180, 200, 220]
+
+pd.DataFrame(itertools.product(engine_sizes, engine_temps))
+```
+
+### R
+
+```{r}
+engine_sizes = c(2.4, 3.2)
+engine_temps = c(180, 200, 220)
+
+tidyr::expand_grid(engine_sizes, engine_temps)
+```
+:::
+
+And once we have that, all we need to do is iterate across each row of the newly created data frame! Each row contains all the parameter information we'll need, so we just extract that information within the loop as we iterate through it.
+
+Now, putting it all together, here's what code for that might look like:
+
+::: panel-tabset
+### Python
+
+```{python, eval = FALSE}
+# load necessary packages
+import pandas as pd
+from itertools import product
+
+# Create a single data frame using the Cartesian product of your parameters
+params = pd.DataFrame(product(engine_sizes, engine_temps, manufacturers,
+                              fuel_levels, miles, speeds))
+
+# Run just one loop across each row of your data frame
+for row in np.arange(params.shape[0]):
+  some_function(arg_1 = params.iloc[row, 0],
+                arg_2 = params.iloc[row, 1],
+                arg_3 = params.iloc[row, 2],
+                arg_4 = params.iloc[row, 3],
+                arg_5 = params.iloc[row, 4],
+                arg_6 = params.iloc[row, 5])
+```
+
+### R
+
+```{r, eval = FALSE}
+# load necessary packages
+library(tidyverse)
+
+# Create a single data frame using the Cartesian product of your parameters
+params = expand_grid(engine_sizes, engine_temps, manufacturers,
+                     fuel_levels, miles, speeds)
+
+# Run just one loop across each row of your data frame
+for (row in nrow(params)) {
+  some_function(arg_1 = params[[row, 1]],
+                arg_2 = params[[row, 2]],
+                arg_3 = params[[row, 3]],
+                arg_4 = params[[row, 4]],
+                arg_5 = params[[row, 5]]
+                arg_6 = params[[row, 6]])
+}
+```
+:::
+
+And it's really that simple.
+
+Using this approach, it doesn't matter how many parameters you're working with; the amount of loops you need will only ever be one.
+
+### The True Power of this Approach
+
+As the experienced reader may have already realized, this approach not only makes it easier to read and write nested for-loops, it also makes it much simpler to parallelize them. With nested loops, you're limited to parallelizing just one level at a time or worrying about nested threads if you're brave enough to dare trying multiple. With the Cartesian approach, however, you can reach every combination of parameters with just one parallelized operation, making full use of your computing resources and freeing up your time and attention to think about more important things like how in the world you're going to visualize all this awesome data you've just collected.
+
+That, however, is a topic for another post ;)

@@ -14,6 +14,10 @@ about:
 
 I'm a 4th year PhD student with scientific expertise in applied statistics as well as human learning, behavior, and motivation. I have a passion for using data to uncover the realities hidden right in front of our eyes and striving - always - to learn and grow as a professional.
 
+Currently seeking Summer 2025 Internships.
+
+Email me at lrutten20@gmail.com or message me on [LinkedIn](https://www.linkedin.com/in/lukerutten/)!
+
 # Experience
 
 #### Intuit \| Data Science Intern
@@ -29,11 +33,11 @@ I'm a 4th year PhD student with scientific expertise in applied statistics as we
 
 #### UT - Austin \| Instructor of Record
 
--   Designed and delivered two 75 minute lectures each week over a 15 week semester
+-   Designed and delivered 30 lectures for a semester-long course, synthesizing complex statistical and theoretical concepts on the working of the human mind
 -   Earned an average instructor rating, across 84 undergraduate students, of 4.9 / 5
 
 # Education
 
 -   PhD in Educational Psychology \| **The University of Texas at Austin** \| 2021 - 2026
--   MA in Quantitative Methods \| **The University of Texas at Austin \|** 2021 - 2026
+-   MA in Quantitative Methods \| **The University of Texas at Austin \|** 2021 - 2024
 -   BS in Psychology & Neurobiology \| **The University of Wisconsin - Madison** \| 2017 - 2021
