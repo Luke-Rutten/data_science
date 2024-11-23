@@ -1,6 +1,7 @@
 # README
 
 This is where the code for my blog lives.
+
 If you'd like to create one of these for yourself, I'd highly recommend the following resources:
 
 - https://quarto.org/docs/guide/
