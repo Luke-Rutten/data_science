@@ -11,6 +11,7 @@ website:
         href: https://github.com/Luke-Rutten
       - icon: linkedin
         href: https://www.linkedin.com/in/lukerutten/
+draft-mode: gone
 format:
   html:
     theme: lux

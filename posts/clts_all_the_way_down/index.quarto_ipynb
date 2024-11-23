@@ -30,7 +30,7 @@
         "\n",
         "Now that CLT definition is a bit abstract so, to make it more clear, here's a demonstration. Let's say we're trying to make an inference about the average height of students in their freshman year, but there's a small problem: human height tends to follow a bimodal distribution (one peak for males, one peak for females).\n"
       ],
-      "id": "eb6e973d"
+      "id": "6efe9a1c"
     },
     {
       "cell_type": "code",
@@ -61,7 +61,7 @@
         "        title = pn.element_text(size = 16))\n",
         ")"
       ],
-      "id": "be374fbf",
+      "id": "4eabcd5d",
       "execution_count": null,
       "outputs": []
     },
@@ -76,7 +76,7 @@
         "::: panel-tabset\n",
         "### *n* = 1\n"
       ],
-      "id": "343c7f3a"
+      "id": "b037382b"
     },
     {
       "cell_type": "code",
@@ -104,7 +104,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "24ba5cb5",
+      "id": "b38ecd39",
       "execution_count": null,
       "outputs": []
     },
@@ -114,7 +114,7 @@
       "source": [
         "### *n* = 30\n"
       ],
-      "id": "a3f3c8ef"
+      "id": "4108c16d"
     },
     {
       "cell_type": "code",
@@ -142,7 +142,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "e4c0bfb4",
+      "id": "46c9ae98",
       "execution_count": null,
       "outputs": []
     },
@@ -152,7 +152,7 @@
       "source": [
         "### *n* = 300\n"
       ],
-      "id": "a7bfe9eb"
+      "id": "bef48d55"
     },
     {
       "cell_type": "code",
@@ -180,7 +180,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "2339545a",
+      "id": "9a6cbd5b",
       "execution_count": null,
       "outputs": []
     },
@@ -202,7 +202,7 @@
         "\n",
         "We start with a full population of 1,000 data points. It doesn't need to be 1,000; it could be 42 or 1,000,000 or really however many you feel like. I'm going with 1,000 because it's easy to graph. Now, in this example, our thousand data points follow a non-normal distribution like before. Maybe we're trying to make an inference about the average height of freshman attending a specific school this time and our population data looks something like this:\n"
       ],
-      "id": "25e4fe73"
+      "id": "cf66fef5"
     },
     {
       "cell_type": "code",
@@ -229,7 +229,7 @@
         "        title = pn.element_text(size = 16))\n",
         ")"
       ],
-      "id": "58600bd3",
+      "id": "c16b23ca",
       "execution_count": null,
       "outputs": []
     },
@@ -244,7 +244,7 @@
         "::: panel-tabset\n",
         "### *n* = 1\n"
       ],
-      "id": "1d32f365"
+      "id": "d2f20d3e"
     },
     {
       "cell_type": "code",
@@ -272,7 +272,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "c20bdd24",
+      "id": "3bb247d2",
       "execution_count": null,
       "outputs": []
     },
@@ -282,7 +282,7 @@
       "source": [
         "### *n* = 2\n"
       ],
-      "id": "8491e04a"
+      "id": "923f215c"
     },
     {
       "cell_type": "code",
@@ -310,7 +310,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "108eaf99",
+      "id": "b44b66e5",
       "execution_count": null,
       "outputs": []
     },
@@ -320,7 +320,7 @@
       "source": [
         "### *n* = 30\n"
       ],
-      "id": "4e9de174"
+      "id": "50b3b87c"
     },
     {
       "cell_type": "code",
@@ -348,7 +348,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "4a252bd8",
+      "id": "9544cba7",
       "execution_count": null,
       "outputs": []
     },
@@ -365,7 +365,7 @@
         "::: panel-tabset\n",
         "### *n* = 300\n"
       ],
-      "id": "0848e53b"
+      "id": "92718f86"
     },
     {
       "cell_type": "code",
@@ -393,7 +393,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "6971721e",
+      "id": "06699b6d",
       "execution_count": null,
       "outputs": []
     },
@@ -403,7 +403,7 @@
       "source": [
         "### *n* = 600\n"
       ],
-      "id": "3aa56eee"
+      "id": "219c81ee"
     },
     {
       "cell_type": "code",
@@ -431,7 +431,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "e8ac8784",
+      "id": "17a4b051",
       "execution_count": null,
       "outputs": []
     },
@@ -441,7 +441,7 @@
       "source": [
         "### *n* = 900\n"
       ],
-      "id": "8417cbd1"
+      "id": "5a07772b"
     },
     {
       "cell_type": "code",
@@ -469,7 +469,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "0f83bcfe",
+      "id": "89346f0a",
       "execution_count": null,
       "outputs": []
     },
@@ -490,7 +490,7 @@
         "::: panel-tabset\n",
         "### *n* = 970\n"
       ],
-      "id": "6ad088c6"
+      "id": "a83148ed"
     },
     {
       "cell_type": "code",
@@ -518,7 +518,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "9ab9817b",
+      "id": "ddfd7762",
       "execution_count": null,
       "outputs": []
     },
@@ -528,7 +528,7 @@
       "source": [
         "### *n* = 998\n"
       ],
-      "id": "7a4d249c"
+      "id": "2f90d8b9"
     },
     {
       "cell_type": "code",
@@ -556,7 +556,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "c42d7440",
+      "id": "ee2be899",
       "execution_count": null,
       "outputs": []
     },
@@ -566,7 +566,7 @@
       "source": [
         "### *n* = 999\n"
       ],
-      "id": "3c7d0118"
+      "id": "e7ce684a"
     },
     {
       "cell_type": "code",
@@ -594,7 +594,7 @@
         "        axis_title_x = pn.element_text(size = 14, margin = {'t': 14}))\n",
         ")"
       ],
-      "id": "1c5a5007",
+      "id": "426fb18c",
       "execution_count": null,
       "outputs": []
     },
@@ -616,7 +616,7 @@
         "\n",
         "So that's the Shadow CLT and I hope this little statistics insight was interesting to think about!"
       ],
-      "id": "cab0279d"
+      "id": "6c30e999"
     }
   ],
   "metadata": {
