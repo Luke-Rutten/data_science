@@ -11,7 +11,9 @@ website:
         href: https://github.com/Luke-Rutten
       - icon: linkedin
         href: https://www.linkedin.com/in/lukerutten/
-draft-mode: gone
+  drafts:
+    - posts/normal_residuals/index.qmd
+  draft-mode: gone
 format:
   html:
     theme: lux
