@@ -9,7 +9,7 @@ format:
 execute:
   warning: false
 date: "2024-10-22"
-image: "stand_in.png"
+image: "inverted_curve.png"
 categories:
   - Statistics
   - 3 Minute Read
